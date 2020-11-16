@@ -1,3 +1,6 @@
-[![Documentation Status](https://readthedocs.org/projects/nbis-reproducible-research/badge/?version=latest)](https://nbis-reproducible-research.readthedocs.io/en/latest/?badge=latest)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/NBISweden/workshop-reproducible-research/binder?filepath=lectures%2Fjupyter%2Fjupyter.ipynb)
 
-This repo contains files used in the tutorials in the NBIS Reproducible Research course. You can find the tutorials on [readthedocs](http://nbis-reproducible-research.readthedocs.io).
+Welcome to the course Tools for reproducible research!
+
+This is a branch dedicated to showcasing [Binder](https://mybinder.org/). Click
+the binder badge at the top of this README.
