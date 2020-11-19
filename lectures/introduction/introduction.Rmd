@@ -3,7 +3,7 @@ title: "Introduction"
 subtitle: "Tools for Reproducible Research NBIS course"
 output:
   xaringan::moon_reader:
-      self-contained: true
+      self-contained: false
       seal: false
       css: ["default", "../template.css"]
       nature:
