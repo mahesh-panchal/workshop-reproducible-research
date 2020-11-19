@@ -2,9 +2,8 @@ site_name: NBIS Reproducible research course
 docs_dir: 'lectures'
 theme:
     name: readthedocs
-    custom_dir: docs_custom/
-pages:
-  - Lectures: 'README.md'
+nav:
+  - Lectures: 'index.md'
 
 markdown_extensions:
   - toc:
