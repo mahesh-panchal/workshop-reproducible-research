@@ -1,26 +1,10 @@
 site_name: NBIS Reproducible research course
+docs_dir: 'lectures'
 theme:
     name: readthedocs
     custom_dir: docs_custom/
 pages:
-  - Welcome: 'index.md'
-  - About: 'about.md'
-  - Practicalities:
-    - Schedule: 'schedule.md'
-    - 'Travel info': 'travel.md'
-    - Feedback: 'feedback.html'
-  - Lectures: 'lectures.md'
-  - Tutorials:
-    - 'Introduction to the tutorials': 'tutorial_intro.md'
-    - Git: 'git.md'
-    - Conda: 'conda.md'
-    - Snakemake: 'snakemake.md'
-    - R Markdown: 'rmarkdown.md'
-    - Jupyter: 'jupyter.md'
-    - Docker: 'docker.md'
-    - Singularity: 'singularity.md'
-    - 'Making a project reproducible': 'repres_project.md'
-    - 'Take down': 'take_down.md'
+  - Lectures: 'README.md'
 
 markdown_extensions:
   - toc:
@@ -30,4 +14,5 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.details
   - pymdownx.superfences
-extra_css: [extra.css]
+extra_css:
+  - template.css
