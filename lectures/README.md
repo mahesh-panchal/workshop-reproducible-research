@@ -1,5 +1,8 @@
 # Lectures
 
+- [Welcome and intro](introduction/introduction.html)
+- [Jupyter](jupyter/jupyter.html)
+
 ## Requirements
 
 Install the required packages using:
