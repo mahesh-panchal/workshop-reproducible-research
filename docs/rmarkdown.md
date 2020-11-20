@@ -423,7 +423,7 @@ You can render (sometimes called "knitting") reports in several different ways:
 
 - Pressing the *Knit* button in RStudio (as we have done this far)
 - Running the R command `render`: to Knit the file `my_file.Rmd` run
-  `render("my_file.Rmd")` in the R console.
+  `rmarkdown::render("my_file.Rmd")` in the R console.
 - Running from the command line: `R -e 'rmarkdown::render("my_file.Rmd")'`
 
 Using the `render` command, we can also set YAML header options and change
@@ -460,7 +460,7 @@ directly in RStudio:
   chunk (depending on your layout, otherwise you can find the options in the
   *Run* drop-down).
 * You can easily insert an empty chunk in your Rmd document in RStudio by
-  pressing *Insert* --> *R*.
+  pressing *Code* --> *Insert Chunk* in the menu.
 
 Depending on your settings, the output of the chunk code will be displayed
 inline in the Rmd document, or in RStudio's *Console* and *Plot* panels. To
@@ -548,9 +548,9 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
     parameters rather than hard-coding them later in the R code.
 
 Next, take a look at the `dependencies`, `read_params`, and `read_data` chunks.
-They 1) load the required packages, 2) reads the parameters and stores them in
-R objects to be used later in the code, and 3) reads the data in the counts
-file, the multiqc file, as well as fetches meta data from GEO. These chunks are
+They 1) load the required packages, 2) read the parameters and store them in
+R objects to be used later in the code, and 3) read the data in the counts
+file, the multiqc file, as well as fetch meta data from GEO. These chunks are
 provided as is, and you do not need to edit them.
 
 Below these chunks there is some markdown text that contains the Supplementary
@@ -808,16 +808,16 @@ matter) and the more common Microsoft Word: the more usual Microsoft software is
 output until you've rendered it. This difference is more pronounced when it
 comes to presentations, as they are more visually heavy.
 
-In essence, an R Markdown presentation works the same way as for a R Markdown
+In essence, a R Markdown presentation works the same way as for a R Markdown
 report, except some different formatting and output specifications. There are
-a number of output formats you can use, but the ones we've used for this course
+a number of output formats you can use, but the one we've used for this course
 (for no other reason than that we like it) is [Xaringan](https://github.com/yihui/xaringan).
-You can install this from Conda (`r-xaringan`) like normal and then specify the
-output format as `xaringan::moon_reader` in your YAML header. Slides are
+You can install it from Conda (`r-xaringan`) like any other package and then 
+specify the output format as `xaringan::moon_reader` in your YAML header. Slides are
 separated using three dashes (`---`) while two dashes (`--`) signify slide
 elements that should appear on-click.
 
-Here bare-bones example of a R Markdown presentation using Xaringan:
+Here is a bare-bones example of a R Markdown presentation using Xaringan:
 
 ````
 ---

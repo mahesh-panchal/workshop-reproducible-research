@@ -92,7 +92,7 @@ cd workshop-reproducible-research
 ```
 
 !!! attention
-    Check your git version by `git --version`. If you have a very old version
+    Check your git version with `git --version`. If you have a very old version
     of git you might want to update to a later version.
 
 !!! tip
@@ -113,28 +113,34 @@ adapted specifically for Windows. Nevertheless, in principle everything
 
 - Use the Linux Bash Shell on Windows 10 (see below) _**Recommended for the
   course**_
+- Run the course in a Docker container (see below)
 - Run as Linux through a virtual machine (and see the Linux setup above)
 - Use the Windows 10 PowerShell, install git and clone the course repository
   (see the Mac/Linux setup above)
-- Run the course in a Docker container (see below)
 
 ### Running in the Linux Bash Shell on Windows 10
 
-For the difference between the Linux Bash Shell and the PowerShell on Windows
+This will give you access to a full command-line bash shell based on Linux on your
+Windows 10 PC. For the difference between the Linux Bash Shell and the PowerShell on Windows
 10, see *e.g.* [this article](
 https://searchitoperations.techtarget.com/tip/On-Windows-PowerShell-vs-Bash-comparison-gets-interesting).
 
-Install Bash on Windows 10, follow the instructions at *e.g.* one of these
+Install Bash on Windows 10, following the instructions at *e.g.* one of these
 resources:
 
-- [Installing the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Installing the Windows Subsystem and the Linux Bash](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 - [Installing and using Linux Bash on Windows](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
 - [Installing Linux Bash on Windows](https://itsfoss.com/install-bash-on-windows/)
 
-Open the Bash Shell Linux terminal and clone the git/bitbucket repository
-containing all files you will need for completing the tutorials, as follows.
-First, `cd` into a directory on your computer (or create one) where it makes
+Open a bash shell Linux terminal and clone the GitHub repository 
+containing all files you will need for completing the tutorials as follows. 
+First, `cd` into a directory on your computer (or create one) where it makes 
 sense to download the course directory.
+
+!!! tip
+    You can find the directory where the Linux distribution is storing all its files by
+    typing `explorer.exe .`. This will launch the Windows File Explorer showing the 
+    current Linux directory.
 
 ```bash
 cd /path/to/your/directory
@@ -153,10 +159,11 @@ cd workshop-reproducible-research
 
 ### Using Docker to run the course
 
-Alternatively, you could use Docker to run the course in a Docker container.
-First, cd into a directory on your computer (or create one) where it makes
-sense to download the course directory. Install Docker by following the
-instructions in the [Docker tutorial](docker.md#windows). Then run:
+Alternatively, you can use Docker to run the course in a Docker container.
+First, open the Windows 10 PowerShell and `cd` into a directory on your computer 
+(or create one) where it makes sense to download the course directory. 
+Install Docker by following the instructions in the [Docker tutorial](docker.md#windows). 
+Then run:
 
 ```bash
 cd c:/my_dir
