@@ -1,4 +1,4 @@
-site_name: NBIS Reproducible research course
+site_name: NBIS Tools for Reproducible Research
 docs_dir: 'lectures'
 theme:
     name: readthedocs
