@@ -38,132 +38,13 @@ resources:
 * An [early paper](https://arxiv.org/abs/1410.0846) on the subject of using
   Docker for reproducible research.
 
-## Setup
-
 This tutorial depends on files from the course GitHub repo. Take a look at the
-[intro](tutorial_intro.md) for instructions on how to set it up if you haven't
-done so already. Then open up a terminal and go to 
-`workshop-reproducible-research/docker`.
+[setup](setup.md) for instructions on how to set it up if you haven't done so
+already. Then open up a terminal and go to `workshop-reproducible-research/docker`.
 
 !!! attention
     Docker images tend to take up quite a lot of space. In order to do all the
     exercises in this tutorial you need to have ~10 GB available.
-
-First we need to install Docker. This is quite straightforward on macOS or
-Windows and a little more cumbersome on Linux. Note that Docker runs as root,
-which means that you have to have sudo privileges on your computer in order to
-install or run Docker.
-
-### macOS
-
-Go to [docker.com](
-https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
-and select "Get Docker for Mac (Stable)". This will download a dmg file. Click
-on it once it's done to start the installation. This will open up a window
-where you can drag the Docker.app to Applications. Close the window and click
-the Docker app from the Applications menu. Now it's basically just to click
-"next" a couple of times and we should be good to go. You can find the Docker
-icon in the menu bar in the upper right part of the screen.
-
-### Windows
-
-The instructions are different depending on if you have Windows 10 or Windows
-7 (earlier versions aren't supported). In order to run Docker on Windows your
-computer must support Hardware Virtualization Technology and virtualization
-must be enabled. This is typically done in BIOS. Setting this is outside the
-scope of this tutorial, so we'll simply go ahead as if though it's enabled and
-hope that it works.
-
-On Windows 10 we will install Docker for Windows, which is available at
-[docker.com](https://docs.docker.com/docker-for-windows/install/#download-docker-for-windows).
-Select "Get Docker for Windows (Stable)".
-
-1. Once it's downloaded, double-click `Docker for Windows Installer.exe` to run
-   the installer.
-
-2. Follow the install wizard and accept the license, authorize the installer,
-   and proceed with the install. You will be asked to authorize Docker.app with
-   your system password during the install process. Click Finish to exit the
-   installer.
-
-3. Start Docker from the Start menu. You can search for it if you cannot find
-   it. The Docker whale icon should appear in the task bar. Open the Windows 10
-   PowerShell to run the tutorial.
-
-4. If you would like to use the Linux Bash Shell instead of the Windows 10 
-    PowerShell, you might need to enable integration with the Linux app you 
-    installed. Right-click on the Docker whale icon in the task bar and 
-    select Settings. Choose Resources and in there, select WPS integration. 
-    Enable integration with the Linux app you installed and click Apply & Restart. 
-    Restart also the Linux app.
-
-On Windows 7 we will instead use Docker Toolbox, which is available at
-[docker.com](https://docs.docker.com/toolbox/toolbox_install_windows/). Select
-"Get Docker Toolbox for Windows".
-
-1. Install Docker Toolbox by double-clicking the installer. Step through the
-   installation and accept all the defaults. If Windows security dialog prompts
-   you to allow the program to make a change, choose Yes. If you get a prompt
-   asking "Would you like to install this device software?" select Install.
-
-2. You should now have a Docker Quickstart icon on the desktop.
-
-### Linux
-How to install Docker differs a bit depending on your Linux distro, but the
-steps are the same. For details on how to do it on your distro see
-[https://docs.docker.com/engine/installation/#server](https://docs.docker.com/engine/install/#server).
-
-Here we show how to do it for Ubuntu, which is the most common desktop
-distribution. Docker requires a 64-bit Ubuntu version 14.04 or higher. If your
-OS is from 2015 or earlier you can double check this with `lsb_release -a`. If
-it's newer you're probably fine. The same instructions apply to other 
-distributions based on Ubuntu, such as Elementary OS or Linux Mint, but you 
-would have to map to the corresponding Ubuntu version and use that instead of 
-`$(lsb_release -cs)` below (see [here](
-https://en.wikipedia.org/wiki/Linux_Mint_version_history#Release_history)
-for Mint).
-
-1. Add the GPG key for the official Docker repository to the system:
-
-```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-
-2. Add the Docker repository to APT sources:
-
-```bash
-sudo add-apt-repository "deb [arch=amd64] \
-    https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-```
-
-3. Update the package database with the Docker packages from the new repo:
-
-```bash
-sudo apt-get update
-```
-
-4. Install Docker Community Edition:
-
-```bash
-sudo apt-get install -y docker-ce
-```
-
-5. Docker should now be installed, the daemon started, and the process enabled
-   to start on boot. Check that it's running:
-
-```bash
-sudo systemctl status docker
-```
-
-The output should say something about "Active: active (running) since..".
-
-!!! tip
-    As mentioned before, Docker needs to run as root. You can achieve this by
-    prepending all Docker commands with `sudo`. This is the approach that we
-    will take in this tutorial, since the set up becomes a little simpler. If
-    you plan on continuing using Docker you can get rid of this by adding your
-    user to the group `docker`. Here are instructions for how to do this:
-    [https://docs.docker.com/engine/installation/linux/linux-postinstall/][].
 
 ## The basics
 
@@ -216,22 +97,26 @@ either by "REPOSITORY:TAG" ("latest" is the default so we can omit it) or
 [COMMAND] [ARG...]`. Let's run the command `uname -a` to get some info about
 the operating system. First run on your own system (skip this if you're using
 Windows via the Windows 10 PowerShell, or use `systeminfo` which is the 
-Windows equivalent).
+Windows equivalent):
 
 ```bash
 uname -a
 ```
+
+This should print something like this to your command line:
 
 ```no-highlight
 Darwin liv433l.lan 15.6.0 Darwin Kernel Version 15.6.0: Mon Oct  2 22:20:08 PDT 2017; root:xnu-3248.71.4~1/RELEASE_X86_64 x86_64
 ```
 
 Seems like I'm running the Darwin version of macOS. Then run it in the Ubuntu
-Docker container.
+Docker container:
 
 ```bash
 docker run ubuntu uname -a
 ```
+
+Here I get the following result:
 
 ```no-highlight
 Linux 24d063b5d877 5.4.39-linuxkit #1 SMP Fri May 8 23:03:06 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
@@ -449,24 +334,12 @@ automatically activates the Conda base environment in the container.
 ENV PATH="/usr/miniconda3/bin:${PATH}"
 ENV LC_ALL en_US.UTF-8
 ENV LC_LANG en_US.UTF-8
-ENV CONDA_ENVS_PATH="/course/envs"
-RUN mkdir /course/envs
 ```
 
 Here we use the new instruction `ENV`. The first command adds `conda` to the
 path, so we can write `conda install` instead of `/usr/miniconda3/bin/conda install`. 
 The next two commands set an UTF-8 character encoding so that we can use
-weird characters (and a bunch of other things). The final two commands
-are specifying a directory in which Conda environments are stored.
-Every time an image is run, a brand new container is started and Conda 
-environments from previous runs that were stored in the default directory would be lost. 
-The directory `course/` can be mounted to a local directory when starting
-the container. This will make it and all its contents that are created while running
-the container available on the local computer (more about bind mounts further 
-below in the tutorial). So by specifying this directory in the Dockerfile, 
-Conda environments from previous runs of the image can be made available
-in future runs.
-
+weird characters (and a bunch of other things). 
 
 ```no-highlight
 # Open port for running Jupyter Notebook
@@ -548,14 +421,16 @@ the image. So, this is what we need to do:
 Try to add required lines to `Dockerfile_conda`. If it seems overwhelming you 
 can take a look below
 
-??? note "Click to see an example of Dockerfile_conda"
+??? note "Click to see an example of `Dockerfile_conda`"
+
+    ```
     FROM my_docker_image:latest
     RUN conda config --add channels bioconda && \
         conda config --add channels conda-forge && \
         conda install -n base fastqc=0.11.9 sra-tools=2.10.1
     COPY run_qc.sh .
     CMD bash run_qc.sh
-
+    ```
 
 Build the image and tag it `my_docker_conda`: 
 

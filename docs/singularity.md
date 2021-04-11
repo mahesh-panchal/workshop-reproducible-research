@@ -14,34 +14,10 @@ If you want to read more, here are some additional resources:
 * [Uppmax Singularity user guide](
   https://www.uppmax.uu.se/support/user-guides/singularity-user-guide/)
 
-## Setup
-
 This tutorial depends on files from the course GitHub repo. Take a look at
-the [intro](tutorial_intro.md) for instructions on how to set it up if you
+the [setup](setup.md) for instructions on how to set it up if you
 haven't done so already. Then open up a terminal and go to
 `workshop-reproducible-research/singularity`.
-
-### Installing on macOS
-
-Download the Singularity Desktop DMG file from
-[here](https://sylabs.io/singularity-desktop-macos/) and follow the 
-instructions. Note that this is a beta version and not all features are 
-available yet.
-
-!!! attention
-    Make sure you that 'Singularity networking' is checked during installation
-
-### Installing on Linux
-
-Follow the instructions [here](
-https://sylabs.io/guides/3.4/user-guide/installation.html#distribution-packages-of-singularity).
-
-### Installing on Windows
-
-Installing on Windows requires running Singularity through a Vagrant Box, which may be tricky. 
-See [instructions here](
-https://sylabs.io/guides/3.4/user-guide/installation.html#install-on-windows-or-mac).
-
 
 ## The basics
 
@@ -58,7 +34,7 @@ thing you might have noticed is that this command produces a file
 `ubuntu_latest.sif` in the current working directory. Singularity, unlike
 Docker, stores its images as a single file. Docker on the other hand uses
 layers, which can be shared between multiple images, and thus stores downloaded
-images centrally (remember the `docker image ls` command?). A Singularity image
+images centrally (remember the `docker images` command?). A Singularity image
 file is self-contained (no shared layers) and can be moved around and shared
 like any other file.
 
@@ -66,9 +42,12 @@ To run a command in a Singularity container (equivalent of *e.g.* `docker run
 ubuntu uname -a`) we can execute:
 
 ```bash
-$ singularity exec ubuntu_latest.sif uname -a
+singularity exec ubuntu_latest.sif uname -a
+```
+
+This should result in something similar to:
+```no-highlight
 Linux (none) 4.19.10 #1 SMP Mon Apr 8 00:07:40 CDT 2019 x86_64 x86_64 x86_64 GNU/Linux
-[    4.994162] reboot: Power down
 ```
 
 Now, try to also run the following commands in the ubuntu container in the same
@@ -134,7 +113,7 @@ ls /mnt/code
 ```
 
 Now, this was not really necessary since `conda/` would have been available to
-us anyway since it most likely has you home directory as a parent, but it
+us anyway since it most likely is a sub-directory under your `$HOME`, but it
 illustrates the capabilities to get files from the host system into the
 container when needed. Note also that if you run Singularity on say an HPC
 cluster, the system admins may have enabled additional default directories that
@@ -162,8 +141,6 @@ singularity run lolcow_latest.sif
 singularity exec lolcow_latest.sif fortune
 singularity shell lolcow_latest.sif
 ```
-
-
 
 !!! note "Quick recap"
     In this section we covered how to use `singularity pull` to download and
@@ -285,7 +262,7 @@ will soon install).
     apt-get clean
 
     # Install conda:
-    curl https://repo.continuum.io/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -O
+    curl -L https://repo.continuum.io/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -O
     bash Miniconda3-4.7.12.1-Linux-x86_64.sh -bf -p /usr/miniconda3/
     rm Miniconda3-4.7.12.1-Linux-x86_64.sh
 
@@ -331,8 +308,13 @@ Singularity has the option to build images remotely. To do this, you need to:
   create an account
 * Log in and find "Access Tokens" in the menu and create a new token
 * Copy the token
-* In your terminal, run `singularity remote login`, paste the copied token
-  and hit ENTER. You should get a **API Key Verified!** message.
+* In your terminal, run `singularity remote login` and hit ENTER. You should be
+  asked to enter the token (API Key). Paste the copied token and hit ENTER. 
+  You should get a **API Key Verified!** message.
+
+!!! attention
+    In case you are not asked to enter the API Key, you can try to run 
+    `singularity remote login SylabsCloud` instead.
 
 We can now try to build the MRSA Singularity image using the `--remote` flag:
 
@@ -352,7 +334,7 @@ else correct it should be related to the PATH).
 
     ```bash
     # Install conda:
-    curl https://repo.continuum.io/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -O
+    curl -L https://repo.continuum.io/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -O
     bash Miniconda3-4.7.12.1-Linux-x86_64.sh -bf -p /usr/miniconda3/
     rm Miniconda3-4.7.12.1-Linux-x86_64.sh
     export PATH=/usr/miniconda3/bin:$PATH ## <- add this line
@@ -427,14 +409,18 @@ execute the workflow and generate the output files using:
 singularity run --vm-ram 2048 mrsa_proj.sif
 ```
 
-This executes the default run command, which is `snakemake -rp --configfile 
-config.yml` (as defined in the original `Dockerfile`). 
+This executes the default run command, which is 
+`snakemake -rp --configfile config.yml` (as defined in the original 
+`Dockerfile`). 
 
-Note here that we have also increased the allocated RAM to 2048 MiB (`--vm
--ram 2048`), needed to fully run through the workflow. The previous step in
-this tutorial included running the `run_qc.sh` script, so that part of the
-workflow has already been run and Snakemake will continue from that 
-automatically without redoing anything. Once completed you should see a bunch
-of directories and files generated in your current working directory, including 
-the `results/` directory containing the 
-final PDF report.
+!!! note
+    Note here that we have increased the allocated RAM to 2048 MiB (`--vm-ram 2048`), 
+    needed to fully run through the workflow. In case the command fails, 
+    you can try to increase the RAM to e.g. 4096 MiB, or you can try to run the command
+    without the  `--vm-ram` parameter.
+
+The previous step in this tutorial included running the `run_qc.sh` script, 
+so that part of the workflow has already been run and Snakemake will continue 
+from that automatically without redoing anything. Once completed you should 
+see a bunch of directories and files generated in your current working 
+directory, including the `results/` directory containing the final HTML report.
